@@ -1,24 +1,26 @@
 import React from 'react';
-import { Dimensions, FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import categories from "../data/categories.json"
 import FlatCard from '../components/FlatCard';
 
-const CategoriesScreen = () => {
+const CategoriesScreen = ({setCategory}) => {
 
     const renderCategoryItem = ({item, index}) =>{
         return(
-            <FlatCard style={
-                    index%2==0 ?
-                    {...styles.flatCardContainer,...styles.row} :
-                    {...styles.flatCardContainer,...styles.rowReverse}
-                }>
-                <Image
-                    source={{uri:item.image}}
-                    style={styles.image}
-                    resizeMode='contain'
-                />
-                <Text style={styles.categoryTitle}>{item.title}</Text>
-            </FlatCard>
+            <Pressable onPress={()=>setCategory(item.title)}>
+                <FlatCard style={
+                        index%2==0 ?
+                        {...styles.flatCardContainer,...styles.row} :
+                        {...styles.flatCardContainer,...styles.rowReverse}
+                    }>
+                    <Image
+                        source={{uri:item.image}}
+                        style={styles.image}
+                        resizeMode='contain'
+                    />
+                    <Text style={styles.categoryTitle}>{item.title}</Text>
+                </FlatCard>
+            </Pressable>
         )
     }
 
