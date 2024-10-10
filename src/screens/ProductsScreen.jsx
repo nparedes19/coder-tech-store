@@ -4,50 +4,65 @@ import products from '../data/products.json'
 import FlatCard from '../components/FlatCard';
 import MontesrratText from '../components/MontesrratText';
 import {useEffect, useState} from 'react'
+import { colors } from '../global/colors';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Search from '../components/Search';
 
-const ProductsScreen = ({category}) => {
+const ProductsScreen = ({category, setCategory,setProductId}) => {
 
     const [productsFilterd, setProductsFiltered] = useState([])
+    const [search, setSearch] = useState('')
 
     useEffect(()=>{
         const productosTempFiltered = products.filter(product => product.category === category.toLowerCase())
         setProductsFiltered(productosTempFiltered)
-    }, [category])
+        if(search){
+            const productsTempSearched = productsFilterd.filter(product=>product.title.toLowerCase().includes(search.toLowerCase()))
+            setProductsFiltered(productsTempSearched)
+        }
+    }, [category, search])
 
     const renderProductItem = ({item}) => {
         return(
-            <FlatCard style={styles.productContainer}>
-                <View>
-                    <Image
-                        source={{uri:item.mainImage}}
-                        style={styles.productImage}
-                        resizeMode='contain'
-                    />
-                </View>
-                <View styles={styles.productDescription}>
-                    <MontesrratText>{item.title}</MontesrratText>
-                    <Text>{item.shortDescription}</Text>
-                    <FlatList
-                        data={item.tags}
-                        keyExtractor={() => Math.random()}
-                        renderItem={({item})=> <Text>{item}</Text>}
-                    />
-                    {
-                        item.discount > 0 && <Text>Descuento: {item.discount}</Text>
-                    }
-                    {
-                        item.stock <= 0 && <Text>Sin stock</Text>
-                    }
-                    <Text>{item.price}</Text>
-                </View>
-            </FlatCard>
+            <Pressable onPress={()=>setProductId(item.id)}>
+                <FlatCard style={styles.productContainer}>
+                    <View>
+                        <Image
+                            source={{uri:item.mainImage}}
+                            style={styles.productImage}
+                            resizeMode='contain'
+                        />
+                    </View>
+                    <View styles={styles.productDescription}>
+                        <MontesrratText style={styles.title}>{item.title}</MontesrratText>
+                        <Text style={styles.textDescription}>{item.shortDescription}</Text>
+                        <View style={styles.containerTags}>
+                            <Text style={styles.titleTags}>Tags: </Text>
+                            <FlatList
+                                style={styles.containerTags}
+                                data={item.tags}
+                                keyExtractor={() => Math.random()}
+                                renderItem={({item})=> <Text style={styles.tags}>{item}</Text>}
+                            />
+                        </View>
+                        {
+                            item.discount > 0 && <View style={styles.discount}><Text style={styles.textDiscount}>Descuento: {item.discount} %</Text></View>
+                        }
+                        {
+                            item.stock <= 0 && <Text style={styles.stock}>Sin stock</Text>
+                        }
+                        <Text style={styles.textPrice}>Precio: $ {item.price}</Text>
+                    </View>
+                </FlatCard>
+            </Pressable>
         )
     }
     return (
         <>
-            <Pressable>
-                
+            <Pressable onPress={()=>setCategory('')} style={styles.goBackContainer}>
+                <Text><Icon name="arrow-back-ios" size={30} style={styles.goBack}/></Text>
             </Pressable>
+            <Search setSearch={setSearch}/>
             <FlatList
                 data={productsFilterd}
                 keyExtractir={item=>item.id}
@@ -66,10 +81,55 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         padding: 20,
         justifyContent: 'flex-start',
-        gap: 15
+        gap: 15,
+        marginVertical: 10,
+        width: '95%',
+        alignSelf: 'center'
+
     },
     productDescription:{
-        width: '75%'
+        width: '75%',
+    },
+    discount: {
+        backgroundColor: colors.naranjaBrillante,
+        padding: 8,
+        borderRadius: 12,
+        alignSelf: 'flex-start',
+        marginVertical: 10
+    },
+    textDiscount: {
+        color: colors.blanco
+    },
+    stock:{
+        color: colors.rojo
+    },
+    title:{
+        color: colors.negro,
+        fontSize:16,
+        width:'70%'
+    },
+    textPrice:{
+        fontWeight: 'bold'
+    },
+    textDescription:{
+        width: '60%',
+        marginVertical: 5
+    },
+    containerTags:{
+        flexDirection:'row',
+    },
+    tags:{
+        marginHorizontal: 3,
+        color: colors.morado
+    },
+    titleTags:{
+        color: colors.morado
+    },
+    goBack:{
+        color: colors.grisMedio,
+    },
+    goBackContainer:{
+        padding:10
     }
 })
 
