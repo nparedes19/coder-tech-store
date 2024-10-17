@@ -5,21 +5,17 @@ import { colors } from '../global/colors';
 import products from '../data/products.json'
 import {useEffect, useState} from 'react'
 
-const ProductScreen = ({productId, setProductId}) => {
+const ProductScreen = ({route}) => {
     const [productFound, setProductFound] = useState({})
+    const productId =  route.params
 
     useEffect(()=>{
         setProductFound(products.find(product => product.id === productId))
     },[productId])
 
-    console.log(productFound)
-
     return (
         
         <View>
-            <Pressable onPress={()=>setProductId(null)} style={styles.goBackContainer}>
-                <Text><Icon name="arrow-back-ios" size={30} style={styles.goBack}/></Text>
-            </Pressable>
             <Text>{productFound.title}</Text>
         </View>
     );

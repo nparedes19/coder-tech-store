@@ -6,13 +6,14 @@ const Header = () => {
     return (
         <View style={styles.headerContainer}>
             <Text style={styles.title}>Tech Store</Text>
+            <Text style={styles.subTitle}>Tecnología a tu alcance 🚀</Text>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     headerContainer:{
-        height: 150,
+        height: 140,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: colors.grisOscuro
@@ -21,7 +22,12 @@ const styles = StyleSheet.create({
         fontSize:24,
         // fontWeight: 'bold',
         color: colors.amarillo,
-        fontFamily: 'PressStart2P'
+        fontFamily: 'PressStart2P',
+    },
+    subTitle:{
+        fontSize:16,
+        marginTop: 10,
+        color: colors.blanco,
     }
 })
 

@@ -8,10 +8,12 @@ import { colors } from '../global/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Search from '../components/Search';
 
-const ProductsScreen = ({category, setCategory,setProductId}) => {
+const ProductsScreen = ({navigation,route}) => {
 
     const [productsFilterd, setProductsFiltered] = useState([])
     const [search, setSearch] = useState('')
+
+    const category = route.params
 
     useEffect(()=>{
         const productosTempFiltered = products.filter(product => product.category === category.toLowerCase())
@@ -24,7 +26,7 @@ const ProductsScreen = ({category, setCategory,setProductId}) => {
 
     const renderProductItem = ({item}) => {
         return(
-            <Pressable onPress={()=>setProductId(item.id)}>
+            <Pressable onPress={()=>navigation.navigate("Producto", item.id)}>
                 <FlatCard style={styles.productContainer}>
                     <View>
                         <Image
@@ -59,9 +61,6 @@ const ProductsScreen = ({category, setCategory,setProductId}) => {
     }
     return (
         <>
-            <Pressable onPress={()=>setCategory('')} style={styles.goBackContainer}>
-                <Text><Icon name="arrow-back-ios" size={30} style={styles.goBack}/></Text>
-            </Pressable>
             <Search setSearch={setSearch}/>
             <FlatList
                 data={productsFilterd}

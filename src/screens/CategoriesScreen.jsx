@@ -3,11 +3,11 @@ import { Dimensions, FlatList, Image, Pressable, StyleSheet, Text, View } from '
 import categories from "../data/categories.json"
 import FlatCard from '../components/FlatCard';
 
-const CategoriesScreen = ({setCategory}) => {
+const CategoriesScreen = ({navigation}) => {
 
     const renderCategoryItem = ({item, index}) =>{
         return(
-            <Pressable onPress={()=>setCategory(item.title)}>
+            <Pressable onPress={()=>navigation.navigate('Productos', item.title)}>
                 <FlatCard style={
                         index%2==0 ?
                         {...styles.flatCardContainer,...styles.row} :
