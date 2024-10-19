@@ -19,14 +19,12 @@ const styles = StyleSheet.create({
         backgroundColor: colors.grisOscuro
     },
     title:{
-        fontSize:24,
-        // fontWeight: 'bold',
-        color: colors.amarillo,
-        fontFamily: 'PressStart2P',
+        fontSize:36,
+        fontFamily: 'Nabla',
     },
     subTitle:{
         fontSize:16,
-        marginTop: 10,
+        marginTop: -5,
         color: colors.blanco,
     }
 })
