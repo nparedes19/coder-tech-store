@@ -1,28 +1,28 @@
 import React from 'react';
 import { FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native';
-import products from '../data/products.json'
+// import products from '../data/products.json'
 import FlatCard from '../components/FlatCard';
 import MontesrratText from '../components/MontesrratText';
 import {useEffect, useState} from 'react'
 import { colors } from '../global/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Search from '../components/Search';
+import { useSelector, useDispatch } from 'react-redux';
 
 const ProductsScreen = ({navigation,route}) => {
 
     const [productsFilterd, setProductsFiltered] = useState([])
     const [search, setSearch] = useState('')
 
-    const category = route.params
+    const producstFilteredByCategory = useSelector(state =>state.shopSlice.value.productsFiltered)
 
     useEffect(()=>{
-        const productosTempFiltered = products.filter(product => product.category === category.toLowerCase())
-        setProductsFiltered(productosTempFiltered)
+        setProductsFiltered(producstFilteredByCategory)
         if(search){
             const productsTempSearched = productsFilterd.filter(product=>product.title.toLowerCase().includes(search.toLowerCase()))
             setProductsFiltered(productsTempSearched)
         }
-    }, [category, search])
+    }, [search])
 
     const renderProductItem = ({item}) => {
         return(
