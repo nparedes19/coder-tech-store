@@ -8,8 +8,11 @@ import { colors } from '../global/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Search from '../components/Search';
 import { useSelector, useDispatch } from 'react-redux';
+import { setProduct } from '../features/shop/shopSlice';
 
 const ProductsScreen = ({navigation,route}) => {
+
+    const dispatch = useDispatch()
 
     const [productsFilterd, setProductsFiltered] = useState([])
     const [search, setSearch] = useState('')
@@ -26,7 +29,9 @@ const ProductsScreen = ({navigation,route}) => {
 
     const renderProductItem = ({item}) => {
         return(
-            <Pressable onPress={()=>navigation.navigate("Producto", item.id)}>
+            <Pressable onPress={()=>{
+                dispatch(setProduct(item.id))
+                navigation.navigate("Producto")}}>
                 <FlatCard style={styles.productContainer}>
                     <View>
                         <Image

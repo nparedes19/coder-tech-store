@@ -1,19 +1,19 @@
 import { StyleSheet, Text, View, Pressable, useWindowDimensions, Image, FlatList, ScrollView } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../global/colors';
-import products from '../data/products.json'
 import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux';
 
 const ProductScreen = ({ route, navigation }) => {
     const [productFound, setProductFound] = useState({})
 
-    const productId = route.params
+    const product = useSelector(state =>state.shopSlice.value.productShown)[0]
 
     const { width, height } = useWindowDimensions()
 
     useEffect(() => {
-        setProductFound(products.find(product => product.id === productId))
-    }, [productId])
+        setProductFound(product)
+    }, [product])
 
     return (
         <ScrollView style={styles.productContainer}>

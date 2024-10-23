@@ -9,17 +9,23 @@ export const shopSlice = createSlice({
             categories: categories,
             products: products,
             categorySelected:'',
-            productsFiltered: []
+            productsFiltered: [],
+            productSelected: null,
+            productShown: []
         }
     },
     reducers: {
         setCategory : (state,action) => {
             state.value.productsFiltered = products.filter (product => product.category.toLocaleLowerCase() === action.payload.toLocaleLowerCase())
             state.categorySelected = action.payload
+        },
+        setProduct : (state,action) => {
+            state.value.productShown = products.filter (product => product.id === action.payload)
+            state.value.productSelected = action.payload
         }
     }
 })
 
-export const {setCategory} = shopSlice.actions
+export const {setCategory,setProduct} = shopSlice.actions
 
 export default shopSlice.reducer
