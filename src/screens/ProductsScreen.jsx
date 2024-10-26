@@ -9,15 +9,16 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Search from '../components/Search';
 import { useSelector, useDispatch } from 'react-redux';
 import { setProduct } from '../features/shop/shopSlice';
+import { useGetProductsByCategoryQuery } from '../services/shopService';
 
 const ProductsScreen = ({navigation,route}) => {
 
     const dispatch = useDispatch()
-
+ 
     const [productsFilterd, setProductsFiltered] = useState([])
     const [search, setSearch] = useState('')
-
-    const producstFilteredByCategory = useSelector(state =>state.shopSlice.value.productsFiltered)
+    const category = useSelector(state =>state.shopSlice.value.categorySelected)
+    const { data: producstFilteredByCategory, error, isLoading } = useGetProductsByCategoryQuery(category)
 
     useEffect(()=>{
         setProductsFiltered(producstFilteredByCategory)

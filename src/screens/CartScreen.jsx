@@ -1,22 +1,24 @@
 import { FlatList, StyleSheet, Text, View, Image,Pressable } from 'react-native'
 import React from 'react'
-import cart from '../data/cart.json'
 import { colors } from '../global/colors'
 import FlatCard from '../components/FlatCard'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { clearCart, removeItem } from '../features/cart/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const CartScreen = () => {
-    const [total, setTotal] = useState(0)
 
-    useEffect(()=>{
-        setTotal(cart.reduce((acumulador, item)=>(acumulador+=item.price*item.quantity),0))
-    },[cart])
+    const cart = useSelector(state => state.cartSlice.value.cartItems)
+    const total = useSelector(state => state.cartSlice.value.total)
+    
+    const dispatch = useDispatch()
 
     const FooterComponent = () => (
         <View style={styles.footerContainer}>
             <Text style={styles.footerTotal}>Total: $ {total} </Text>
-            <Pressable style={styles.confirmButton}>
+            <Pressable style={styles.confirmButton} onPress={() => dispatch(clearCart())}>
                 <Text style={styles.confirmButtonText}>Confirmar</Text>
             </Pressable>
         </View>
@@ -37,7 +39,7 @@ const CartScreen = () => {
                 <Text style={styles.price}>Precio unitario: $ {item.price}</Text>
                 <Text stlyle={styles.quantity}>Cantidad: {item.quantity}</Text>
                 <Text style={styles.total}>Total: $ {item.quantity * item.price}</Text>
-                <Icon name="delete" size={24} color="#FC7A5E" style={styles.trashIcon} />
+                <Icon name="delete" size={24} color="#FC7A5E" style={styles.trashIcon} onPress={()=>{dispatch(removeItem(item))}}/>
             </View>
         </FlatCard>
     )

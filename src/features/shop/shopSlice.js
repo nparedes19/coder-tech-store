@@ -17,7 +17,7 @@ export const shopSlice = createSlice({
     reducers: {
         setCategory : (state,action) => {
             state.value.productsFiltered = products.filter (product => product.category.toLocaleLowerCase() === action.payload.toLocaleLowerCase())
-            state.categorySelected = action.payload
+            state.value.categorySelected = action.payload
         },
         setProduct : (state,action) => {
             state.value.productShown = products.filter (product => product.id === action.payload)

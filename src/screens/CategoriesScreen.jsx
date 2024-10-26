@@ -1,12 +1,15 @@
 import React from 'react';
-import { Dimensions, FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, FlatList, Image, Pressable, StyleSheet, Text, View , ActivityIndicator} from 'react-native';
 import FlatCard from '../components/FlatCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategory } from '../features/shop/shopSlice';
+import { useGetCategoriesQuery } from '../services/shopService';
 
 const CategoriesScreen = ({navigation}) => {
 
-    const categories = useSelector(state=>state.shopSlice.value.categories)
+    // const categories = useSelector(state=>state.shopSlice.value.categories)
+
+    const { data: categories, error, isLoading } = useGetCategoriesQuery()
 
     const dispatch = useDispatch()
 
