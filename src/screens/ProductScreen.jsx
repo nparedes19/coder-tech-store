@@ -14,8 +14,10 @@ const ProductScreen = ({ route, navigation }) => {
     const { width, height } = useWindowDimensions()
 
     useEffect(() => {
-        setProductFound(data[0])
-    }, [data[0]])
+        if (data && data.length > 0) {
+            setProductFound(data[0]);
+        }
+    }, [data])
     
     const dispatch = useDispatch()
 

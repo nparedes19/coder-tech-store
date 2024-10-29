@@ -23,6 +23,7 @@ export const shopApi = createApi ({
         getProduct: builder.query({
             query: (id) => {
                 id = id.toString()
+                console.log(id)
                 const queryURL = `products.json?orderBy="id"&equalTo=${id}`;
                 return(
                     queryURL

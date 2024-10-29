@@ -7,18 +7,24 @@ import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { clearCart, removeItem } from '../features/cart/cartSlice';
 import { useDispatch } from 'react-redux';
+import { usePostReceiptMutation } from '../services/receiptsService'
 
-const CartScreen = () => {
+const CartScreen = ({navigation}) => {
 
     const cart = useSelector(state => state.cartSlice.value.cartItems)
     const total = useSelector(state => state.cartSlice.value.total)
-    
+    const [trigerPost, result] = usePostReceiptMutation()
+
     const dispatch = useDispatch()
 
     const FooterComponent = () => (
         <View style={styles.footerContainer}>
             <Text style={styles.footerTotal}>Total: $ {total} </Text>
-            <Pressable style={styles.confirmButton} onPress={() => dispatch(clearCart())}>
+            <Pressable style={styles.confirmButton} onPress={() => {
+                    trigerPost({cart, total, createdAt: Date.now()})
+                    dispatch(clearCart())
+                    navigation.navigate('Receipts')
+                }}>
                 <Text style={styles.confirmButtonText}>Confirmar</Text>
             </Pressable>
         </View>

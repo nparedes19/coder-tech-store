@@ -10,12 +10,12 @@ const ReceiptsScreen = () => {
     let total = item.items.reduce((acumulador, item) => (acumulador += item.quantity * item.price), 0)
 
     dateOptions ={
-      year: 'numeric',      // Muestra el año
-      month: '2-digit',     // Muestra el mes en formato de 2 dígitos
-      day: '2-digit',       // Muestra el día en formato de 2 dígitos
-      hour: '2-digit',      // Muestra las horas en formato de 2 dígitos
-      minute: '2-digit',    // Muestra los minutos en formato de 2 dígitos
-      hour12: false         // Usa formato de 24 horas (puedes cambiar a true para 12 horas)
+      year: 'numeric',      
+      month: '2-digit',     
+      day: '2-digit',       
+      hour: '2-digit',      
+      minute: '2-digit',    
+      hour12: false         
     };
 
     return (

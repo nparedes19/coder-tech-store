@@ -26,7 +26,7 @@ const ProductsScreen = ({navigation,route}) => {
             const productsTempSearched = productsFilterd.filter(product=>product.title.toLowerCase().includes(search.toLowerCase()))
             setProductsFiltered(productsTempSearched)
         }
-    }, [search])
+    }, [search,producstFilteredByCategory])
 
     const renderProductItem = ({item}) => {
         return(
