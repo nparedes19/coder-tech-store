@@ -12,7 +12,6 @@ const Tab = createBottomTabNavigator()
 
 const TabNavigator = () => {
     return (
-        <NavigationContainer>
             <Tab.Navigator
                 initialRouteName="Shop"
                 screenOptions={{
@@ -40,7 +39,6 @@ const TabNavigator = () => {
                         tabBarIcon: ({focused})=>(<Icon name="receipt-long" size={32} color={focused?colors.grisOscuro:colors.grisMedio} />)
                     }}/>
             </Tab.Navigator>
-        </NavigationContainer>
     );
 }
 

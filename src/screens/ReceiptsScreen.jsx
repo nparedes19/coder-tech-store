@@ -1,13 +1,16 @@
 import { StyleSheet, Text, FlatList } from 'react-native'
-import receipts from '../data/receipts.json'
 import FlatCard from '../components/FlatCard'
 import { colors } from '../global/colors'
 import  Icon  from 'react-native-vector-icons/MaterialIcons'
+import { useGetReceiptsQuery } from '../services/receiptsService'
 
 const ReceiptsScreen = () => {
 
+  const { data, error, isLoading } = useGetReceiptsQuery()
+
+  console.log(data)
+
   const renderReceiptItem = ({ item }) => {
-    let total = item.items.reduce((acumulador, item) => (acumulador += item.quantity * item.price), 0)
 
     dateOptions ={
       year: 'numeric',      
@@ -20,9 +23,9 @@ const ReceiptsScreen = () => {
 
     return (
       <FlatCard style={styles.receiptContainer}>
-        <Text style={styles.title}>Recibo nro: {item.id}</Text>
+        <Text style={styles.title}>Recibo nro: {data.indexOf(item)}</Text>
         <Text style={styles.date}>Creado el {new Date(item.createdAt).toLocaleString('es-Ar',dateOptions)} Hs.</Text>
-        <Text style={styles.total}>Total: {total} </Text>
+        <Text style={styles.total}>Total: {item.total} </Text>
         <Icon name="visibility" size={24} color={colors.grisOscuro} style={styles.viewIcon} />
       </FlatCard>
     )
@@ -30,7 +33,7 @@ const ReceiptsScreen = () => {
 
   return (
     <FlatList
-      data={receipts}
+      data={data}
       keyExtractor={item => item.id}
       renderItem={renderReceiptItem}
     />

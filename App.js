@@ -4,9 +4,9 @@ import Header from './src/components/Header';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {useEffect, useState} from 'react'
-import TabNavigator from './src/navigation/TabNavigator';
 import { store } from './src/app/store';
 import { Provider } from 'react-redux'
+import MainNavigator from './src/navigation/MainNavigator';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -30,7 +30,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <Header/>
-      <TabNavigator/>
+      <MainNavigator/>
       <StatusBar style="auto" />
     </Provider>
   );
