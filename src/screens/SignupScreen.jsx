@@ -101,7 +101,6 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     title: {
-        color: colors.verdeNeon,
         fontFamily: 'Nabla',
         fontSize: 26
     },
