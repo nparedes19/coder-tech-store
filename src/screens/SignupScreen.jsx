@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View, TextInput, Pressable, Dimensions } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../global/colors';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSignupMutation } from '../services/authService';
-
+import { setUser } from '../features/auth/authSlice';
+import { useDispatch } from 'react-redux';
 
 const textInputWidth = Dimensions.get('window').width * 0.7
 
@@ -15,7 +16,18 @@ const SignupScreen = () => {
 
     const [triggerSignup, result] = useSignupMutation()
 
-    console.log(result.error)
+    const dispatch = useDispatch()
+
+    console.log(result)
+
+    useEffect(() => {
+        if(result.status === "relected"){
+
+        }else if(result.status === "fulfilled"){
+            dispatch(setUser(result.data))
+        }
+
+    },[result])
 
     const onSubmit = () => {
         console.log(email)

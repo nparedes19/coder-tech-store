@@ -9,9 +9,13 @@ import { Provider } from 'react-redux'
 import MainNavigator from './src/navigation/MainNavigator';
 
 
+
 SplashScreen.preventAutoHideAsync();
 
+
 export default function App() {
+
+
   const [loaded, error] = useFonts({
     'Montserrat': require('./assets/fonts/Montserrat_Variable.ttf'),
     'PressStart2P': require('./assets/fonts/PressStart2P_Regular.ttf'),
@@ -27,6 +31,9 @@ export default function App() {
   if (!loaded && !error) {
     return null;
   }
+
+  
+  
   return (
     <Provider store={store}>
       <Header/>
