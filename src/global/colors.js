@@ -9,5 +9,8 @@ export const colors = {
     grisMedio:"#C6C6C6",
     grisClaro:"#EBEBEB",
     blanco:"#ffffff",
-    rojo:"#CF010B"
-}
+    rojo:"#CF010B",
+    naranjaPrimario: "#fc5537",
+    azulPrimario:"#72b8cf",
+    azulOscuroTab: "#1a3740",
+    azulPrimarioOscuro:"#41626d"}

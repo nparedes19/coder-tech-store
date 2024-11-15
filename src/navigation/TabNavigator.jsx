@@ -7,6 +7,7 @@ import { StyleSheet, Text } from "react-native";
 import { colors } from "../global/colors";
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import ProfileNavigator from "./ProfileNavigator";
+import MyPlaceNavigator from "./MyPlaceNavigator";
 
 
 const Tab = createBottomTabNavigator()
@@ -24,26 +25,33 @@ const TabNavigator = () => {
                     component={ShopNavigator} 
                     name="Shop"
                     options={{
-                        tabBarIcon: ({focused})=>(<Icon name="shopping-bag" size={32} color={focused?colors.grisOscuro:colors.grisMedio} />)
+                        tabBarIcon: ({focused})=>(<Icon name="shopping-bag" size={32} color={focused?colors.azulOscuroTab:colors.azulPrimario} />)
                     }}
                     />
                 <Tab.Screen 
                     component={CartNavigator} 
                     name="Cart"
                     options={{
-                        tabBarIcon: ({focused})=>(<Icon name="shopping-cart" size={32} color={focused?colors.grisOscuro:colors.grisMedio} />)
+                        tabBarIcon: ({focused})=>(<Icon name="shopping-cart" size={32} color={focused?colors.azulOscuroTab:colors.azulPrimario} />)
                     }}/>
                 <Tab.Screen 
                     component={ReceiptsNavigator} 
                     name="Receipts"
                     options={{
-                        tabBarIcon: ({focused})=>(<Icon name="receipt-long" size={32} color={focused?colors.grisOscuro:colors.grisMedio} />)
+                        tabBarIcon: ({focused})=>(<Icon name="receipt-long" size={32} color={focused?colors.azulOscuroTab:colors.azulPrimario} />)
+                    }}/>
+                
+                <Tab.Screen 
+                    component={MyPlaceNavigator} 
+                    name="Places"
+                    options={{
+                        tabBarIcon: ({focused})=>(<Icon name="location-on" size={32} color={focused?colors.azulOscuroTab:colors.azulPrimario} />)
                     }}/>
                 <Tab.Screen 
                     component={ProfileNavigator} 
                     name="Profile"
                     options={{
-                        tabBarIcon: ({focused})=>(<Icon name="account-circle" size={32} color={focused?colors.grisOscuro:colors.grisMedio} />)
+                        tabBarIcon: ({focused})=>(<Icon name="account-circle" size={32} color={focused?colors.azulOscuroTab:colors.azulPrimario} />)
                     }}/>
             </Tab.Navigator>
     );
@@ -52,7 +60,7 @@ const TabNavigator = () => {
 const styles = StyleSheet.create({
     tabBar:{
         height:74,
-        backgroundColor: colors.grisClaro
+        backgroundColor: colors.azulPrimarioOscuro
     }
 })
 

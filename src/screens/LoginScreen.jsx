@@ -34,31 +34,31 @@ const LoginScreen = ({navigation}) => {
 
     return (
         <LinearGradient
-            colors={['#400962', '#11001B']}
-            start={{ x: 0, y: 0 }} // esquina superior izquierda
-            end={{ x: 1, y: 1 }}   // esquina inferior derecha
+            colors={['#72b8cf', '#41626d']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
             style={styles.gradient}
         >
-            <Text style={styles.title}>Tech Store🚀</Text>
-            <Text style={styles.subTitle}>Ingresa</Text>
+            <Text style={styles.title}>Tech Store 🚀</Text>
+            <Text style={styles.subTitle}>Inicia sesión</Text>
             <View style={styles.inputContainer}>
                 <TextInput
                     onChangeText={(text) => setEmail(text)}
                     placeholderTextColor="#EBEBEB"
-                    placeholder="Email"
+                    placeholder="Correo"
                     style={styles.textInput}
                 />
                 <TextInput
                     onChangeText={(text) => setPassword(text)}
                     placeholderTextColor="#EBEBEB"
-                    placeholder='Password'
+                    placeholder='Contraseña'
                     style={styles.textInput}
                     secureTextEntry
                 />
 
             </View>
             <View style={styles.footTextContainer}>
-                <Text style={styles.whiteText}>¿No tienes una cuenta?</Text>
+                <Text style={styles.whiteText}>¡Registrate</Text>
                 <Pressable onPress={() => navigation.navigate('Signup')}>
                     <Text style={
                         {
@@ -66,12 +66,12 @@ const LoginScreen = ({navigation}) => {
                             ...styles.underLineText
                         }
                     }>
-                        Crea una
+                        aquí!
                     </Text>
                 </Pressable>
             </View>
 
-            <Pressable style={styles.btn} onPress={onsubmit}><Text style={styles.btnText}>Iniciar sesión</Text></Pressable>
+            <Pressable style={styles.btn} onPress={onsubmit}><Text style={styles.btnText}>Ingresar</Text></Pressable>
 
             <View style={styles.guestOptionContainer}>
                 <Text style={styles.whiteText}>¿Solo quieres dar un vistazo?</Text>
@@ -93,27 +93,27 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: 'Nabla',
-        fontSize: 30
+        fontSize: 45
     },
     subTitle: {
-        fontFamily: "Montserrat",
-        fontSize: 18,
-        color: colors.amarillo,
+        fontFamily: "Rubik",
+        fontSize: 24,
+        color: colors.naranjaPrimario,
         fontWeight: '700',
         letterSpacing: 3
     },
     inputContainer: {
         gap: 16,
         margin: 16,
-        marginTop: 48,
+        marginTop: 30,
         alignItems: 'center',
 
     },
     textInput: {
         padding: 8,
         paddingLeft: 16,
-        borderRadius: 16,
-        backgroundColor: "#95859E",
+        borderRadius: 12,
+        backgroundColor: 'rgba(255, 255, 255, 0.3)',
         width: textInputWidth,
         color: colors.blanco,
     },
@@ -122,7 +122,8 @@ const styles = StyleSheet.create({
         gap: 8,
     },
     whiteText: {
-        color: colors.blanco
+        color: colors.blanco,
+        marginLeft: -5
     },
     underLineText: {
         textDecorationLine: 'underline',
@@ -134,8 +135,8 @@ const styles = StyleSheet.create({
     btn: {
         padding: 16,
         paddingHorizontal: 32,
-        backgroundColor: colors.morado,
-        borderRadius: 16,
+        backgroundColor: colors.naranjaPrimario,
+        borderRadius: 12,
         marginTop: 32
     },
     btnText: {

@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 
 const textInputWidth = Dimensions.get('window').width * 0.7
 
-const SignupScreen = () => {
+const SignupScreen = ({navigation}) => {
 
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
@@ -39,37 +39,36 @@ const SignupScreen = () => {
 
     return (
         <LinearGradient
-            colors={['#400962', '#11001B']}
-            start={{ x: 0, y: 0 }} // esquina superior izquierda
-            end={{ x: 1, y: 1 }}   // esquina inferior derecha
+            colors={['#72b8cf', '#41626d']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
             style={styles.gradient}
         >
-            <Text style={styles.title}>Tech Store🚀</Text>
+            <Text style={styles.title}>Tech Store 🚀</Text>
             <Text style={styles.subTitle}>Registrate</Text>
             <View style={styles.inputContainer}>
                 <TextInput
                     onChangeText={(text) => setEmail(text)}
                     placeholderTextColor="#EBEBEB"
-                    placeholder="Email"
+                    placeholder="Correo"
                     style={styles.textInput}
                 />
                 <TextInput
                     onChangeText={(text) => setPassword(text)}
                     placeholderTextColor="#EBEBEB"
-                    placeholder='Password'
+                    placeholder='Contraseña'
                     style={styles.textInput}
                     secureTextEntry
                 />
                 <TextInput
                     onChangeText={(text) => setConfirmPassword(text)}
                     placeholderTextColor="#EBEBEB"
-                    placeholder='Repetir password'
+                    placeholder='Repetir constraseña'
                     style={styles.textInput}
                     secureTextEntry
                 />
             </View>
             <View style={styles.footTextContainer}>
-                <Text style={styles.whiteText}>¿No tienes una cuenta?</Text>
                 <Pressable onPress={() => navigation.navigate('Login')}>
                     <Text style={
                         {
@@ -77,7 +76,7 @@ const SignupScreen = () => {
                             ...styles.underLineText
                         }
                     }>
-                        Crea una
+                        Inicia sesión
                     </Text>
                 </Pressable>
             </View>
@@ -102,27 +101,27 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: 'Nabla',
-        fontSize: 26
+        fontSize: 45
     },
     subTitle: {
-        fontFamily: "Montserrat",
-        fontSize: 18,
-        color: colors.amarillo,
+        fontFamily: "Rubik",
+        fontSize: 24,
+        color: colors.naranjaPrimario,
         fontWeight: '700',
         letterSpacing: 3
     },
     inputContainer: {
         gap: 16,
         margin: 16,
-        marginTop: 48,
+        marginTop: 35,
         alignItems: 'center',
 
     },
     textInput: {
         padding: 8,
         paddingLeft: 16,
-        borderRadius: 16,
-        backgroundColor: "#95859E",
+        borderRadius: 12,
+        backgroundColor: 'rgba(255, 255, 255, 0.3)',
         width: textInputWidth,
         color: colors.blanco,
     },
@@ -143,8 +142,8 @@ const styles = StyleSheet.create({
     btn: {
         padding: 16,
         paddingHorizontal: 32,
-        backgroundColor: colors.morado,
-        borderRadius: 16,
+        backgroundColor: colors.naranjaPrimario,
+        borderRadius: 12,
         marginTop: 32
     },
     btnText: {
