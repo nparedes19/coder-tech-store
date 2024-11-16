@@ -1,11 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { colors } from '../global/colors';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { clearUser } from '../features/auth/authSlice';
+import { clearSessions } from '../db';
 
 const Header = () => {
 
     const user = useSelector(state => state.authSlice.value.email)
+    const dispatch = useDispatch()
+
+    const logout = () => {
+      dispatch(clearUser())
+      clearSessions().then().catch()
+    }
+
     if (!user) {
         return null;
       }
@@ -14,6 +24,9 @@ const Header = () => {
         <View style={styles.headerContainer}>
           <Text style={styles.title}>Tech Store 🚀</Text>
           <Text style={styles.subTitle}>Tecnología a tu alcance </Text>
+          {
+            user && <Pressable onPress={logout} style={styles.logout}><Icon name='logout' color='#fff' size={24}/></Pressable>
+          }
         </View>
       );
 }
@@ -35,6 +48,10 @@ const styles = StyleSheet.create({
         color: colors.blanco,
         fontWeight: 'bold',
         fontFamily: "Rubik",
+    },
+    logout:{
+      alignSelf: 'flex-end',
+      marginRight: 20
     }
 })
 

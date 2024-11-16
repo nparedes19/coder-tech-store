@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useSignupMutation } from '../services/authService';
 import { setUser } from '../features/auth/authSlice';
 import { useDispatch } from 'react-redux';
+import Toast from 'react-native-toast-message';
 
 const textInputWidth = Dimensions.get('window').width * 0.7
 
@@ -13,6 +14,14 @@ const SignupScreen = ({navigation}) => {
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
     const [confirmpassword,setConfirmPassword] = useState("")
+
+    const showToast = (type,message) => {
+        Toast.show({
+            type: type,
+            text1: message,
+            visibilityTime: 2000,
+        })
+    }
 
     const [triggerSignup, result] = useSignupMutation()
 
@@ -30,9 +39,14 @@ const SignupScreen = ({navigation}) => {
     },[result])
 
     const onSubmit = () => {
-        console.log(email)
-        console.log(password)
-        console.log(confirmpassword)
+        if(email === '' || password === '' ||confirmpassword === ''){
+            showToast('error', 'Aún faltan datos en tu registro 😅')
+            return
+        }
+        if(password != confirmpassword){
+            showToast('error', 'Las contraseñas no coinciden 😕')
+            return
+        }
         triggerSignup({email,password})
     }
 
@@ -68,25 +82,12 @@ const SignupScreen = ({navigation}) => {
                     secureTextEntry
                 />
             </View>
-            <View style={styles.footTextContainer}>
-                <Pressable onPress={() => navigation.navigate('Login')}>
-                    <Text style={
-                        {
-                            ...styles.whiteText,
-                            ...styles.underLineText
-                        }
-                    }>
-                        Inicia sesión
-                    </Text>
-                </Pressable>
-            </View>
-
             <Pressable style={styles.btn} onPress={onSubmit}><Text style={styles.btnText}>Crear cuenta</Text></Pressable>
 
-            <View style={styles.guestOptionContainer}>
-                <Text style={styles.whiteText}>¿Solo quieres dar un vistazo?</Text>
-                <Pressable><Text style={{ ...styles.whiteText, ...styles.strongText }}>Ingresa como invitado</Text></Pressable>
+            <View style={styles.boxLogIn}>
+                <Pressable onPress={() => navigation.navigate('Login')}><Text style={{ ...styles.whiteText, ...styles.strongText }}>Inicia sesión 😎</Text></Pressable>
             </View>
+            <Toast/>
         </LinearGradient>
     )
 }
@@ -124,20 +125,14 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255, 255, 255, 0.3)',
         width: textInputWidth,
         color: colors.blanco,
-    },
-    footTextContainer: {
-        flexDirection: 'row',
-        gap: 8,
+        fontSize: 16
     },
     whiteText: {
         color: colors.blanco
     },
-    underLineText: {
-        textDecorationLine: 'underline',
-    },
     strongText: {
         fontWeight: '900',
-        fontSize: 16
+        fontSize: 18,
     },
     btn: {
         padding: 16,
@@ -151,8 +146,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '700'
     },
-    guestOptionContainer: {
+    boxLogIn: {
         alignItems: 'center',
-        marginTop: 64
+        marginTop: 40
     }
 })

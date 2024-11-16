@@ -7,7 +7,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 
 import { useGetProfilePictureQuery } from '../services/userService';
-import { setProfilePicture } from '../features/auth/authSlice';
+import { setProfilePicture, setUser } from '../features/auth/authSlice';
+import { fetchSession } from '../db';
 
 
 
@@ -18,6 +19,22 @@ const MainNavigator = () => {
     const dispatch = useDispatch()
 
     const {data: profilePicture, isLoading, error} = useGetProfilePictureQuery(localId)
+
+    useEffect(()=>{
+        if(!user){
+            (async ()=>{
+                try{
+                    const session = await fetchSession()
+                    console.log("Session: ",session)
+                    if(session.length){
+                        dispatch(setUser(session[0]))
+                    }
+                }catch(error){
+                    console.log("Error al obtener la sesión", error)
+                }    
+            })()
+        }
+    },[user])
 
     useEffect(()=>{
         if(profilePicture){

@@ -7,10 +7,13 @@ import {useEffect, useState} from 'react'
 import { store } from './src/app/store';
 import { Provider } from 'react-redux'
 import MainNavigator from './src/navigation/MainNavigator';
+import { initSessions } from './src/db';
 
-
-
-
+initSessions().then(
+  (result) => console.log('Tabla creada con exito', result)
+  ).catch(
+    (error) => console.log('error al crear la tabla', error)
+  )
 
 SplashScreen.preventAutoHideAsync();
 

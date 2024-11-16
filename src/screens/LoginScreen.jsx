@@ -5,6 +5,9 @@ import { useState, useEffect } from 'react';
 import { setUser } from '../features/auth/authSlice';
 import { useDispatch } from 'react-redux';
 import { useLoginMutation } from '../services/authService';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { clearSessions, insertSession } from '../db';
+import Toast from 'react-native-toast-message';
 
 
 const textInputWidth = Dimensions.get('window').width * 0.7
@@ -13,19 +16,42 @@ const LoginScreen = ({navigation}) => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [rememberMe, setRememberMe] = useState(false)
 
     const dispatch = useDispatch()
 
     const [triggerLogin, result] = useLoginMutation()
 
+    const showToast = (type,message) => {
+        Toast.show({
+            type: type,
+            text1: message,
+            visibilityTime: 2000,
+        })
+    }
+
     useEffect(()=>{
-        if(result.status==="rejected"){
-            console.log("Error al iniciar sesión", result)
-        }else if(result.status==="fulfilled"){
+        if(result.isSuccess){
             console.log("Usuario logueado con éxito")
             dispatch(setUser(result.data))
+            console.log(rememberMe)
+            if(rememberMe){
+                clearSessions().then(() => console.log('sesiones eliminadas')).catch(error => console.log("Error al eiminar las sesiones"))
+                insertSession({
+                    localId: result.data.localId,
+                    email: result.data.email,
+                    token: result.data.idToken
+                }).then((result) => console.log(result)).catch(
+                    error=> console.log(error)
+                )
+            }
         }
-    },[result])
+        if(result.error){
+            if(result.error.data.error.code === 400){
+                showToast('error', 'Datos incorrectos 🙁')
+            }
+        }
+    },[result, rememberMe])
 
     const onsubmit = ()=>{
         //console.log(email,password)       
@@ -57,28 +83,26 @@ const LoginScreen = ({navigation}) => {
                 />
 
             </View>
-            <View style={styles.footTextContainer}>
-                <Text style={styles.whiteText}>¡Registrate</Text>
-                <Pressable onPress={() => navigation.navigate('Signup')}>
-                    <Text style={
-                        {
-                            ...styles.whiteText,
-                            ...styles.underLineText
-                        }
-                    }>
-                        aquí!
-                    </Text>
-                </Pressable>
+            <View style={styles.rememberMeBox}>
+                <Text style={styles.whiteText}>Recordar datos</Text>
+                {
+                    rememberMe
+                    ?
+                    <Pressable onPress={() =>  setRememberMe(!rememberMe)}><Icon name="toggle-on" size={48} color={colors.naranjaPrimario}/></Pressable>
+                    :
+                    <Pressable onPress={() =>  setRememberMe(!rememberMe)}><Icon name="toggle-off" size={48} color={'rgba(255, 255, 255, 0.3)'}/></Pressable>
+                }
             </View>
 
             <Pressable style={styles.btn} onPress={onsubmit}><Text style={styles.btnText}>Ingresar</Text></Pressable>
 
-            <View style={styles.guestOptionContainer}>
-                <Text style={styles.whiteText}>¿Solo quieres dar un vistazo?</Text>
-                <Pressable onPress={()=>dispatch(setUser({email:"demo@mundogeek.com",token:"demo"}))}>
-                  <Text style={{ ...styles.whiteText, ...styles.strongText }}>Ingresa como invitado</Text>
+            <View style={styles.registerBox}>
+                <Text style={styles.whiteText}>¿No tienes cuenta?</Text>
+                <Pressable  onPress={() => navigation.navigate('Signup')}>
+                  <Text style={{ ...styles.f, ...styles.strongText }}>Registrate aquí 😊</Text>
                 </Pressable>
             </View>
+            <Toast/>
         </LinearGradient>
     )
 }
@@ -116,36 +140,40 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255, 255, 255, 0.3)',
         width: textInputWidth,
         color: colors.blanco,
-    },
-    footTextContainer: {
-        flexDirection: 'row',
-        gap: 8,
+        fontSize: 16
     },
     whiteText: {
         color: colors.blanco,
-        marginLeft: -5
+        marginLeft: -5,
+        fontSize: 16
     },
     underLineText: {
         textDecorationLine: 'underline',
     },
     strongText: {
         fontWeight: '900',
-        fontSize: 16
+        fontSize: 18,
+        color: colors.blanco,
     },
     btn: {
         padding: 16,
         paddingHorizontal: 32,
         backgroundColor: colors.naranjaPrimario,
         borderRadius: 12,
-        marginTop: 32
+        marginTop: 25
     },
     btnText: {
         color: colors.blanco,
         fontSize: 16,
         fontWeight: '700'
     },
-    guestOptionContainer: {
+    registerBox: {
         alignItems: 'center',
         marginTop: 64
+    },
+    rememberMeBox: {
+        flexDirection:'row',
+        alignItems: 'center',
+        gap: 15
     }
 })
