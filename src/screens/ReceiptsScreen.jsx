@@ -1,12 +1,12 @@
 import { StyleSheet, Text, FlatList } from 'react-native'
 import FlatCard from '../components/FlatCard'
 import { colors } from '../global/colors'
-import  Icon  from 'react-native-vector-icons/MaterialIcons'
 import { useGetReceiptsQuery } from '../services/receiptsService'
 
 const ReceiptsScreen = () => {
 
   const { data, error, isLoading } = useGetReceiptsQuery()
+  
 
   console.log(data)
 
@@ -23,10 +23,9 @@ const ReceiptsScreen = () => {
 
     return (
       <FlatCard style={styles.receiptContainer}>
-        <Text style={styles.title}>Recibo nro: {data.indexOf(item)}</Text>
-        <Text style={styles.date}>Creado el {new Date(item.createdAt).toLocaleString('es-Ar',dateOptions)} Hs.</Text>
-        <Text style={styles.total}>Total: {item.total} </Text>
-        <Icon name="visibility" size={24} color={colors.grisOscuro} style={styles.viewIcon} />
+        <Text style={styles.title}>Recibo {data.indexOf(item)}</Text>
+        <Text style={styles.date}>Creado el {new Date(item.createdAt).toLocaleString('es-Co',dateOptions)} Hs.</Text>
+        <Text style={styles.total}>Total ${item.total} </Text>
       </FlatCard>
     )
   }
@@ -47,16 +46,22 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: "flex-start",
     margin: 16,
-    gap: 10,
+    gap: 5,
+    backgroundColor: colors.azulPrimario
   },
   title: {
-    fontWeight: '700'
+    fontWeight: '700',
+    fontFamily: 'Rubik',
+    fontSize: 20,
+    color: colors.naranjaPrimario
   },
   total: {
-    fontSize: 16,
-    fontWeight: '700'
+    fontSize: 18,
+    fontWeight: '700',
+    color: colors.azulOscuroTab
   },
-  viewIcon: {
-    alignSelf: 'flex-end'
+  date:{
+    ontFamily: 'Rubik',
+    fontSize: 18,
   }
 })

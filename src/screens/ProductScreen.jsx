@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../features/cart/cartSlice';
 import { useGetProductQuery } from '../services/shopService';
+import Toast from 'react-native-toast-message';
 
 const ProductScreen = ({ route, navigation }) => {
     const [productFound, setProductFound] = useState({})
@@ -21,9 +22,16 @@ const ProductScreen = ({ route, navigation }) => {
     
     const dispatch = useDispatch()
 
+    const showToast = (type,message) => {
+        Toast.show({
+            type: type,
+            text1: message,
+            visibilityTime: 2000,
+        })
+    }
+
     return (
         <ScrollView style={styles.productContainer}>
-
             <View style={styles.titleBox}>
                 <Text style={styles.textTitle}>{productFound.title}</Text>
             </View>
@@ -42,9 +50,13 @@ const ProductScreen = ({ route, navigation }) => {
             </View>
             <Pressable 
                 style={({ pressed }) => [{ opacity: pressed ? 0.95 : 1 },styles.addToCartButton]}
-                onPress={() => dispatch(addItem({ ...productFound, quantity: 1 }))}>
+                onPress={() => {
+                    dispatch(addItem({ ...productFound, quantity: 1 }))
+                    showToast('success', 'Se agrego este producto a tu carrito 😍')
+                    }}>
                 <Text style={styles.textAddToCart}>Agregar al carrito</Text>
             </Pressable>
+            <Toast/>
         </ScrollView>
     )
 }

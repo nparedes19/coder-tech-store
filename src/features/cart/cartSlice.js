@@ -52,10 +52,42 @@ export const cartSlice = createSlice({
                 total: 0,
             };
             return state;
+        },
+        lessQuantity: (state, action) => {
+            state.value.cartItems.map(item=>{
+                if(item.id===action.payload.id){
+                    item.quantity -= 1
+                    return item
+                }
+                return item
+            })
+
+            const total = calculate_total_price(state.value.cartItems)
+
+            state.value = {
+                ...state.value,
+                total,
+            };
+        },
+        moreQuantity: (state, action) => {
+            state.value.cartItems.map(item=>{
+                if(item.id===action.payload.id){
+                    item.quantity += 1
+                    return item
+                }
+                return item
+            })
+
+            const total = calculate_total_price(state.value.cartItems)
+
+            state.value = {
+                ...state.value,
+                total,
+            };
         }
     }
 })
 
-export const {addItem, removeItem,clearCart} = cartSlice.actions
+export const {addItem, removeItem,clearCart, lessQuantity, moreQuantity} = cartSlice.actions
 
 export default cartSlice.reducer

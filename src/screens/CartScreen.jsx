@@ -3,9 +3,8 @@ import React from 'react'
 import { colors } from '../global/colors'
 import FlatCard from '../components/FlatCard'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { clearCart, removeItem } from '../features/cart/cartSlice';
+import { clearCart, removeItem, lessQuantity, moreQuantity } from '../features/cart/cartSlice';
 import { useDispatch } from 'react-redux';
 import { usePostReceiptMutation } from '../services/receiptsService'
 
@@ -21,18 +20,23 @@ const CartScreen = ({navigation}) => {
         <View style={styles.footerContainer}>
             <Text style={styles.footerTotal}>Total: $ {total} </Text>
             <Pressable style={styles.confirmButton} onPress={() => {
+                console.log(cart)
                     trigerPost({cart, total, createdAt: Date.now()})
                     dispatch(clearCart())
                     navigation.navigate('Receipts')
                 }}>
-                <Text style={styles.confirmButtonText}>Confirmar</Text>
+                <Text style={styles.confirmButtonText}>Confirmar compra 😍</Text>
             </Pressable>
+            <View style={styles.boxClear}>
+                <Icon name="delete" size={32} color="#FC7A5E" style={styles.trashIcon} onPress={()=>{dispatch(dispatch(clearCart()))}}/>
+                <Text style={styles.textClear}>Vaciar carrito</Text>
+            </View>
         </View>
     )
 
     const renderCartItem = ({ item }) => (
         <FlatCard style={styles.cartContainer}>
-            <View>
+            <View style={styles.boxImage}>
                 <Image
                     source={{ uri: item.mainImage }}
                     style={styles.cartImage}
@@ -42,22 +46,39 @@ const CartScreen = ({navigation}) => {
             <View style={styles.cartDescription}>
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.description}>{item.shortDescription}</Text>
-                <Text style={styles.price}>Precio unitario: $ {item.price}</Text>
-                <Text stlyle={styles.quantity}>Cantidad: {item.quantity}</Text>
-                <Text style={styles.total}>Total: $ {item.quantity * item.price}</Text>
-                <Icon name="delete" size={24} color="#FC7A5E" style={styles.trashIcon} onPress={()=>{dispatch(removeItem(item))}}/>
+                <Text style={styles.price}>Precio: $ {item.price}</Text>
+                <View style={styles.quantityBox}>
+                    <Text style={styles.quantity}>Cantidad: {item.quantity}</Text>
+                    <Icon name="add-box" style={styles.addIcon} size={26} onPress={()=>{dispatch(moreQuantity(item))}}/>
+                    <Icon name="indeterminate-check-box" style={styles.addIcon} size={26} onPress={()=>{dispatch(lessQuantity(item))}}/>
+                </View>
+                <View style={styles.boxTotal}>
+                    <Text style={styles.total}>Total: $ {item.quantity * item.price}</Text>
+                    <View style={styles.boxDelete}>
+                        <Icon name="delete" size={29} color="#FC7A5E" style={styles.trashIcon} onPress={()=>{dispatch(removeItem(item))}}/>
+                        <Text style={styles.textDelete}>Eliminar</Text>
+                    </View>
+                </View>
             </View>
         </FlatCard>
     )
 
     return (
-        <FlatList
-            data={cart}
-            keyExtractor={item => item.id}
-            renderItem={renderCartItem}
-            ListHeaderComponent={<Text style={styles.cartScreenTitle}>Tu carrito:</Text>}
-            ListFooterComponent={<FooterComponent />}
-        />
+        <View>
+            {cart.length === 0 ? (
+                <View style={styles.noProducts}>
+                    <Text style={styles.textNoProducts}>No tienes productos en tu carrito 😭</Text>
+                </View>
+            ) : (
+                <FlatList
+                    data={cart}
+                    keyExtractor={item => item.id}
+                    renderItem={renderCartItem}
+                    ListHeaderComponent={<Text style={styles.cartScreenTitle}>Tu carrito 🛒</Text>}
+                    ListFooterComponent={<FooterComponent />}
+                />
+            )}
+        </View>
     )
 }
 
@@ -70,58 +91,129 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         margin: 16,
         alignItems: "center",
-        gap: 10
+        gap: 10,
+        backgroundColor: colors.azulPrimario
     },
     cartImage: {
-        width: 80,
-        height: 80
+        width: 120,
+        height: 80,
     },
     cartDescription: {
         width: '80%',
         padding: 20,
     },
     title: {
-        fontSize: 16,
-        fontWeight: '700'
+        fontSize: 22,
+        fontWeight: '700',
+        color: colors.naranjaPrimario
     },
     description: {
-        marginBottom: 16,
+        marginBottom: 12,
+        marginTop: 5,
+        fontFamily: 'Rubik',
+        fontWeight: 'bold',
+        fontSize: 15,
+        color: colors.azulOscuroTab
     },
     total: {
         marginTop: 16,
         fontSize: 16,
-        fontWeight: '700'
+        fontWeight: '700',
+        width: 175
     },
     trashIcon: {
-        alignSelf: 'flex-end',
-        marginRight: 16,
+        alignSelf:'center'
     },
     footerContainer: {
-        padding: 32,
+        marginTop: 10,
         gap: 8,
         justifyContent: 'center',
         alignItems: 'center'
     },
     footerTotal: {
-        fontSize: 16,
-        fontWeight: '700'
+        fontSize: 20,
+        fontWeight: '700',
+        fontFamily: 'Rubik',
+        color: colors.azulOscuroTab
     },
     confirmButton: {
         padding: 8,
         paddingHorizontal: 16,
-        backgroundColor: colors.morado,
+        backgroundColor: colors.naranjaPrimario,
         borderRadius: 16,
         marginBottom: 24,
     },
     confirmButtonText: {
         color: colors.blanco,
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: '700'
     }, cartScreenTitle: {
-        fontSize: 16,
-        fontWeight: '700',
+        fontSize: 24,
+        fontWeight: 'bold',
         textAlign: "center",
-        paddingVertical: 8
+        paddingVertical: 8,
+        fontFamily: 'Rubik',
+    },
+    boxDelete:{
+        alignSelf: 'flex-end',
+        marginTop: -12
+    },
+    textDelete:{
+        fontFamily: 'Rubik',
+        color: colors.naranjaPrimario,
+        fontSize: 18, 
+        fontWeight: 'bold',
+        marginTop:-2
+    },
+    price:{
+        fontFamily: 'Rubik',
+        fontWeight: 'bold'
+    },
+    quantity:{
+        fontFamily: 'Rubik',
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        marginRight: 10
+    },
+    quantityBox: {
+        flexDirection: 'row', 
+        marginTop: 12
+    },
+    addIcon:{
+        color: colors.naranjaPrimario
+    },
+    boxImage:{
+        width: '25%'
+    },
+    boxTotal:{
+        flexDirection: 'row',
+    },
+    boxClear:{
+        alignSelf: 'center',
+        height: 50,
+        marginBottom: 20,
+        marginTop: -12
+    },
+    textClear:{
+        fontFamily: 'Rubik',
+        color: colors.naranjaPrimario,
+        fontSize: 20, 
+        fontWeight: 'bold',
+        marginTop:-2
+    },
+    noProducts:{
+        padding: 20,
+        backgroundColor: colors.azulPrimario,
+        borderRadius: 16,
+        marginHorizontal: 16,
+        marginTop: 16
+    },
+    textNoProducts:{
+        fontFamily: 'Rubik',
+        color: colors.naranjaPrimario,
+        fontSize: 20, 
+        fontWeight: 'bold',
+
     }
 
 })
