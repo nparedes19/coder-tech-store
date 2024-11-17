@@ -1,29 +1,24 @@
 import React from 'react';
-import { Dimensions, FlatList, Image, Pressable, StyleSheet, Text, View , ActivityIndicator} from 'react-native';
+import { FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import FlatCard from '../components/FlatCard';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setCategory } from '../features/shop/shopSlice';
 import { useGetCategoriesQuery } from '../services/shopService';
+import { colors } from '../global/colors'
 
 const CategoriesScreen = ({navigation}) => {
 
-    // const categories = useSelector(state=>state.shopSlice.value.categories)
-
-    const { data: categories, error, isLoading } = useGetCategoriesQuery()
+    const { data: categories } = useGetCategoriesQuery()
 
     const dispatch = useDispatch()
 
-    const renderCategoryItem = ({item, index}) =>{
+    const renderCategoryItem = ({item}) =>{
         return(
             <Pressable onPress={()=>{
                     dispatch(setCategory(item.title))
                     navigation.navigate('Productos')
                     }}>
-                <FlatCard style={
-                        index%2==0 ?
-                        {...styles.flatCardContainer,...styles.row} :
-                        {...styles.flatCardContainer,...styles.rowReverse}
-                    }>
+                <FlatCard style={styles.flatCardContainer}>
                     <Image
                         source={{uri:item.image}}
                         style={styles.image}
@@ -50,9 +45,9 @@ const styles = StyleSheet.create({
     flatCardContainer:{
         padding:20,
         alignItems: 'center',
-        justifyContent:'space-between',
+        
         marginHorizontal:10,
-        marginVertical: 5
+        marginVertical: 5,
     },
     image:{
         height:80,
@@ -60,16 +55,14 @@ const styles = StyleSheet.create({
     },
     categoryTitle:{
         fontSize:24,
-        fontWeight: 'bold'
-    },
-    row:{
-        flexDirection:'row'
-    },
-    rowReverse:{
-        flexDirection: 'row-reverse'
+        fontWeight: 'bold',
+        fontFamily: "Rubik",
+        color: colors.azulOscuroTab,
+        marginTop: 7
     },
     categoriesContainer:{
-        flex:1
+        flex:1, 
+        backgroundColor: colors.blanco,
     }
 })
 

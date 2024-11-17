@@ -10,9 +10,9 @@ const Stack = createNativeStackNavigator()
 const ShopNavigator = () => {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Categorías" component={CategoriesScreen} options ={{headerStyle:{backgroundColor: colors.grisClaro}}}/>
-            <Stack.Screen name="Producto" component={ProductScreen} options ={{headerStyle:{backgroundColor: colors.grisClaro}}}/>
-            <Stack.Screen name="Productos" component={ProductsScreen} options ={{headerStyle:{backgroundColor: colors.grisClaro}}}/>
+            <Stack.Screen name="Categorías" component={CategoriesScreen} options ={{headerStyle:{backgroundColor: colors.blanco},headerTintColor: colors.azulOscuroTab, headerTitleStyle:{fontWeight:'bold', fontSize: 24, fontFamily: "Rubik"}}}/>
+            <Stack.Screen name="Producto" component={ProductScreen} options ={{headerStyle:{backgroundColor: colors.blanco},headerTintColor: colors.azulOscuroTab, headerTitleStyle:{fontWeight:'bold', fontSize: 24, fontFamily: "Rubik"}}}/>
+            <Stack.Screen name="Productos" component={ProductsScreen} options ={{headerStyle:{backgroundColor: colors.blanco},headerTintColor: colors.azulOscuroTab, headerTitleStyle:{fontWeight:'bold', fontSize: 24, fontFamily: "Rubik"}}}/>
         </Stack.Navigator>
     );
 }

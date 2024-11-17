@@ -24,28 +24,23 @@ const ProductScreen = ({ route, navigation }) => {
     return (
         <ScrollView style={styles.productContainer}>
 
-            <Text style={styles.textBrand}>{productFound.brand}</Text>
-            <Text style={styles.textTitle}>{productFound.title}</Text>
-            <Image
-                source={{ uri: productFound.mainImage }}
-                alt={productFound.title}
-                width='100%'
-                height={width * .7}
-                resizeMode='contain'
-            />
-            <Text style={styles.longDescription}>{productFound.longDescription}</Text>
-            <View style={styles.tagsContainer}>
-                <View style={styles.tags}>
-                    <Text style={styles.tagText}>Tags : </Text>
-                    {
-                        productFound.tags?.map(tag => <Text key={Math.random()} style={styles.tagText}>{tag}</Text>)
-                    }
-                </View>
+            <View style={styles.titleBox}>
+                <Text style={styles.textTitle}>{productFound.title}</Text>
+                {/* <Text style={styles.textBrand}>{productFound.brand}</Text> */}
             </View>
-            {
-                productFound.stock <= 0 && <Text style={styles.noStockText}>Sin Stock</Text>
-            }
-            <Text style={styles.price}>Precio: $ {productFound.price}</Text>
+            <View style={styles.productBox}>  
+                <Image
+                    source={{ uri: productFound.mainImage }}
+                    alt={productFound.title}
+                    width='100%'
+                    height={width * .7}
+                    resizeMode='contain'
+                />
+                <Text style={styles.longDescription}>{productFound.longDescription}</Text>
+            </View>
+            <View style={styles.priceBox}>
+                <Text style={styles.priceText}>Precio: $ {productFound.price}</Text>
+            </View>
             <Pressable 
                 style={({ pressed }) => [{ opacity: pressed ? 0.95 : 1 },styles.addToCartButton]}
                 onPress={() => dispatch(addItem({ ...productFound, quantity: 1 }))}>
@@ -70,12 +65,14 @@ const styles = StyleSheet.create({
     },
     textTitle: {
         fontSize: 24,
-        fontWeight: '700'
+        fontWeight: '700',
+        color: colors.azulOscuroTab
     },
     longDescription: {
         fontSize: 16,
         textAlign: 'justify',
-        paddingVertical: 8,
+        padding: 8,
+
     },
     tagsContainer: {
         flexDirection: 'row',
@@ -94,8 +91,7 @@ const styles = StyleSheet.create({
         color: colors.morado
     },
     price: {
-        fontWeight: '800',
-        fontSize: 18
+        
     },
     discount: {
         backgroundColor: colors.naranjaBrillante,
@@ -111,17 +107,11 @@ const styles = StyleSheet.create({
     noStockText: {
         color: 'red'
     },
-    price: {
-        fontSize: 24,
-        fontWeight: '700',
-        alignSelf: 'center',
-        paddingVertical: 16
-    },
     addToCartButton: {
         padding: 8,
         paddingHorizontal: 16,
-        backgroundColor: colors.morado,
-        borderRadius: 16,
+        backgroundColor: colors.naranjaPrimario,
+        borderRadius: 20,
         marginVertical: 16
     },
     textAddToCart: {
@@ -129,5 +119,34 @@ const styles = StyleSheet.create({
         fontSize: 24,
         textAlign: 'center',
 
+    },
+    titleBox:{
+        backgroundColor: colors.azulPrimario,
+        padding:15,
+        marginTop: 20,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20, 
+        alignItems: 'center'
+    },
+    productBox:{
+        borderLeftColor: colors.azulOscuroTab,
+        borderWidth: 1,
+        borderTopColor: colors.blanco,
+        borderBottomColor: colors.blanco
+       
+    },
+    priceBox:{
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20, 
+        backgroundColor: colors.azulPrimario,
+    },
+    priceText:{
+        fontWeight: '800',
+        fontSize: 18,
+        color: colors.azulOscuroTab,
+        fontSize: 24,
+        fontWeight: '700',
+        alignSelf: 'center',
+        paddingVertical: 16
     }
 })

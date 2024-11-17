@@ -12,12 +12,13 @@ const FlatCard = ({children,style}) => {
 
 const styles = StyleSheet.create({
     cardContainer:{
-        backgroundColor:colors.grisMedio,
+        backgroundColor:colors.azulFlatCard,
         shadowColor: colors.negro,
         shadowOpacity:1,
         shadowRadius:1,
         shadowOffset:{width:3, height:5},
-        elevation: 5
+        elevation: 5,
+        borderRadius: 20
     }
 })
 

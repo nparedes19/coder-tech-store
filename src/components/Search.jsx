@@ -15,12 +15,14 @@ const Search = ({setSearch}) => {
 
 const styles = StyleSheet.create({
     searchInput:{
-        margin:5,
-        borderWidth: 1,
-        borderColor: colors.grisMedio,
-        borderRadius: 15,
-        padding: 5,
-        paddingLeft:10
+        margin:10,
+        borderWidth: 2,
+        borderColor: colors.azulPrimarioOscuro,
+        borderRadius: 17,
+        padding: 10,
+        paddingLeft:15,
+        fontSize: 16,
+        color: colors.azulPrimarioOscuro
     }
 })
 

@@ -34,7 +34,7 @@ const ProductsScreen = ({navigation,route}) => {
                 dispatch(setProduct(item.id))
                 navigation.navigate("Producto")}}>
                 <FlatCard style={styles.productContainer}>
-                    <View>
+                    <View style={styles.viewImage}>
                         <Image
                             source={{uri:item.mainImage}}
                             style={styles.productImage}
@@ -42,100 +42,78 @@ const ProductsScreen = ({navigation,route}) => {
                         />
                     </View>
                     <View styles={styles.productDescription}>
-                        <MontesrratText style={styles.title}>{item.title}</MontesrratText>
+                        <Text style={styles.title}>{item.title}</Text>
                         <Text style={styles.textDescription}>{item.shortDescription}</Text>
-                        <View style={styles.containerTags}>
-                            <Text style={styles.titleTags}>Tags: </Text>
-                            <FlatList
-                                style={styles.containerTags}
-                                data={item.tags}
-                                keyExtractor={() => Math.random()}
-                                renderItem={({item})=> <Text style={styles.tags}>{item}</Text>}
-                            />
-                        </View>
-                        {
-                            item.discount > 0 && <View style={styles.discount}><Text style={styles.textDiscount}>Descuento: {item.discount} %</Text></View>
-                        }
-                        {
-                            item.stock <= 0 && <Text style={styles.stock}>Sin stock</Text>
-                        }
-                        <Text style={styles.textPrice}>Precio: $ {item.price}</Text>
+                        <Text style={styles.textPrice}>$ {item.price}</Text>
                     </View>
                 </FlatCard>
             </Pressable>
         )
     }
     return (
-        <>
+        <View styles={styles.productsContainer}>
             <Search setSearch={setSearch}/>
             <FlatList
                 data={productsFilterd}
                 keyExtractir={item=>item.id}
                 renderItem={renderProductItem}
             />
-        </>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     productImage:{
         width:100,
-        height:100
+        height:145,
     },
     productContainer:{
         flexDirection: 'row',
-        padding: 20,
         justifyContent: 'flex-start',
         gap: 15,
         marginVertical: 10,
         width: '95%',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        borderRadius: 10
 
     },
     productDescription:{
-        width: '75%',
-    },
-    discount: {
-        backgroundColor: colors.naranjaBrillante,
-        padding: 8,
-        borderRadius: 12,
-        alignSelf: 'flex-start',
-        marginVertical: 10
-    },
-    textDiscount: {
-        color: colors.blanco
-    },
-    stock:{
-        color: colors.rojo
+        width: '100%',
+        
     },
     title:{
-        color: colors.negro,
-        fontSize:16,
-        width:'70%'
+        color: colors.blanco,
+        fontWeight: 'bold',
+        fontSize:20,
+        width:'70%',
+        marginTop: 10
     },
     textPrice:{
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginBottom: 10,
+        borderColor: colors.naranjaPrimario,
+        borderWidth: 2,
+        alignSelf: 'flex-start',
+        padding: 8,
+        borderRadius: 20,
+        color: colors.naranjaPrimario, 
+        fontSize: 18
     },
     textDescription:{
-        width: '60%',
-        marginVertical: 5
+        width: '70%',
+        marginVertical: 3,
+        fontSize: 15
+
     },
-    containerTags:{
-        flexDirection:'row',
+    viewImage:{
+        backgroundColor: colors.azulPrimario,
+        height: '100%',
+        borderRadius: 10,
     },
-    tags:{
-        marginHorizontal: 3,
-        color: colors.morado
-    },
-    titleTags:{
-        color: colors.morado
-    },
-    goBack:{
-        color: colors.grisMedio,
-    },
-    goBackContainer:{
-        padding:10
-    }
+    productsContainer:{
+        backgroundColor: colors.azulPrimario,
+        flex: 1
+    }    
 })
 
 export default ProductsScreen;
