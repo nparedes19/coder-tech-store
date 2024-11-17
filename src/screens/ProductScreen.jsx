@@ -26,7 +26,6 @@ const ProductScreen = ({ route, navigation }) => {
 
             <View style={styles.titleBox}>
                 <Text style={styles.textTitle}>{productFound.title}</Text>
-                {/* <Text style={styles.textBrand}>{productFound.brand}</Text> */}
             </View>
             <View style={styles.productBox}>  
                 <Image
@@ -53,15 +52,8 @@ const ProductScreen = ({ route, navigation }) => {
 export default ProductScreen
 
 const styles = StyleSheet.create({
-    goBack: {
-        padding: 8,
-        color: colors.grisMedio
-    },
     productContainer: {
         paddingHorizontal: 16
-    },
-    textBrand: {
-        color: colors.grisOscuro,
     },
     textTitle: {
         fontSize: 24,
@@ -73,39 +65,6 @@ const styles = StyleSheet.create({
         textAlign: 'justify',
         padding: 8,
 
-    },
-    tagsContainer: {
-        flexDirection: 'row',
-        gap: 5,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginVertical:8
-    },
-    tags: {
-        flexDirection: 'row',
-        gap: 5,
-    },
-    tagText: {
-        fontWeight: '600',
-        fontSize: 14,
-        color: colors.morado
-    },
-    price: {
-        
-    },
-    discount: {
-        backgroundColor: colors.naranjaBrillante,
-        width: 64,
-        height:64,
-        borderRadius: 64,
-    },
-    discountText: {
-        color: colors.blanco,
-        textAlign:'center',
-        verticalAlign: 'center'
-    },
-    noStockText: {
-        color: 'red'
     },
     addToCartButton: {
         padding: 8,
