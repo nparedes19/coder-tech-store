@@ -45,20 +45,21 @@ const styles = StyleSheet.create({
     flatCardContainer:{
         padding:20,
         alignItems: 'center',
-        
+        flexDirection:'row',
         marginHorizontal:10,
         marginVertical: 5,
     },
     image:{
-        height:80,
-        width:150
+        height:100,
+        width:150,
     },
     categoryTitle:{
-        fontSize:24,
+        fontSize:28,
         fontWeight: 'bold',
-        fontFamily: "Rubik",
+        fontFamily: 'Rubik',
         color: colors.azulOscuroTab,
-        marginTop: 7
+        marginTop: 7,
+        marginLeft: 45
     },
     categoriesContainer:{
         flex:1, 
