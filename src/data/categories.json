@@ -1,37 +1,27 @@
 [
     {
-        "id":1,
-        "title":"Gadgets",
-        "image":"https://i.postimg.cc/QCfcGMJw/gadget.png"
+        "id":8,
+        "title":"Celulares",
+        "image":"https://i.postimg.cc/Jz7KHL5W/pngimg-com-iphone16-PNG5.png"
     },
     {
-        "id":2,
-        "title":"Consolas",
-        "image":"https://i.postimg.cc/MTby55MW/consolas.png"
+        "id":9,
+        "title":"Audifonos",
+        "image":"https://i.postimg.cc/DySwvWtV/60b79e8771a1fd000411f6be.png"
     },
     {
-        "id":3,
-        "title":"Comics",
-        "image":"https://i.postimg.cc/RhSwDtKw/comics.png"
+        "id":10,
+        "title":"Tablets",
+        "image":"https://i.postimg.cc/FRFh21jB/61d4a5448b51e20004664d4a.png"
     },
     {
-        "id":4,
-        "title":"Coleccionables",
-        "image":"https://i.postimg.cc/RFz7wy0s/coleccionables.png"
+        "id":11,
+        "title":"Relojes",
+        "image":"https://i.postimg.cc/Kcr4kFCs/thumbnail-Disen-o-sin-ti-tulo-zip-13.png"
     },
     {
-        "id":5,
-        "title":"Hardware",
-        "image":"https://i.postimg.cc/hvs1DscC/arduino.png"
-    },
-    {
-        "id":6,
-        "title":"Ropa&Accesorios",
-        "image":"https://i.postimg.cc/9Q6ZjKym/remeras.png"
-    },
-    {
-        "id":7,
-        "title":"Eventos",
-        "image":"https://i.postimg.cc/zfTWD7kn/ticket.png"
+        "id":12,
+        "title":"Parlantes",
+        "image":"https://i.postimg.cc/KvpTjxMh/thumbnail-Disen-o-sin-ti-tulo-zip-17.png"
     }
 ]
