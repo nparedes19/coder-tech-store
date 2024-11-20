@@ -45,12 +45,14 @@ const LoginScreen = ({navigation}) => {
                     error=> console.log(error)
                 )
             }
+        }else{
+            console.log(result)
         }
-        if(result.error){
-            if(result.error.data.error.code === 400){
-                showToast('error', 'Datos incorrectos 🙁')
-            }
-        }
+        // if(result.error){
+        //     if(result.error.data.error.code === 400){
+        //         showToast('error', 'Datos incorrectos 🙁')
+        //     }
+        // }
     },[result, rememberMe])
 
     const onsubmit = ()=>{

@@ -1,11 +1,8 @@
 import React from 'react';
 import { FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native';
-// import products from '../data/products.json'
 import FlatCard from '../components/FlatCard';
-import MontesrratText from '../components/MontesrratText';
 import {useEffect, useState} from 'react'
 import { colors } from '../global/colors';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import Search from '../components/Search';
 import { useSelector, useDispatch } from 'react-redux';
 import { setProduct } from '../features/shop/shopSlice';
@@ -52,11 +49,14 @@ const ProductsScreen = ({navigation,route}) => {
     }
     return (
         <View styles={styles.productsContainer}>
-            <Search setSearch={setSearch}/>
+            <View>
+                <Search setSearch={setSearch}/>
+            </View>
             <FlatList
                 data={productsFilterd}
-                keyExtractir={item=>item.id}
+                keyExtractor={item=>item.id}
                 renderItem={renderProductItem}
+                contentContainerStyle={{ paddingBottom: 70 }}
             />
         </View>
     );
@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
     title:{
         color: colors.blanco,
         fontWeight: 'bold',
-        fontSize:20,
-        width:'70%',
+        fontSize:19,
+        width:'60%',
         marginTop: 10
     },
     textPrice:{
@@ -100,10 +100,9 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     textDescription:{
-        width: '70%',
+        width: '60%',
         marginVertical: 3,
-        fontSize: 15
-
+        fontSize: 15,
     },
     viewImage:{
         backgroundColor: colors.azulPrimario,

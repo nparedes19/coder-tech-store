@@ -49,8 +49,8 @@ const CartScreen = ({navigation}) => {
                 <Text style={styles.price}>Precio: $ {item.price}</Text>
                 <View style={styles.quantityBox}>
                     <Text style={styles.quantity}>Cantidad: {item.quantity}</Text>
-                    <Icon name="add-box" style={styles.addIcon} size={26} onPress={()=>{dispatch(moreQuantity(item))}}/>
                     <Icon name="indeterminate-check-box" style={styles.addIcon} size={26} onPress={()=>{dispatch(lessQuantity(item))}}/>
+                    <Icon name="add-box" style={styles.addIcon} size={26} onPress={()=>{dispatch(moreQuantity(item))}}/>
                 </View>
                 <View style={styles.boxTotal}>
                     <Text style={styles.total}>Total: $ {item.quantity * item.price}</Text>
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     },
     cartImage: {
         width: 120,
-        height: 80,
+        height: 120,
     },
     cartDescription: {
         width: '80%',
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
         marginTop: 16,
         fontSize: 16,
         fontWeight: '700',
-        width: 175
+        width: 145
     },
     trashIcon: {
         alignSelf:'center'
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     },
     boxDelete:{
         alignSelf: 'flex-end',
-        marginTop: -12
+        marginTop: -12,
     },
     textDelete:{
         fontFamily: 'Rubik',
@@ -183,7 +183,8 @@ const styles = StyleSheet.create({
         color: colors.naranjaPrimario
     },
     boxImage:{
-        width: '25%'
+        width: '25%',
+
     },
     boxTotal:{
         flexDirection: 'row',

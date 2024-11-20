@@ -47,6 +47,7 @@ const ProfileScreen = () => {
     
     return (
         <View style={styles.profileContainer}>
+            <Text style={styles.titleProfile}>Tu información de perfil 🧐</Text>
             <View style={styles.imageProfileContainer}>
                 {
                     image
@@ -61,6 +62,7 @@ const ProfileScreen = () => {
                 </Pressable>
             </View>
             <Text style={styles.profileData}>Email: {user} </Text>
+            <Text style={styles.userData}>Usuario: {user.split('@')[0]} </Text>
         </View>
     )
 }
@@ -74,10 +76,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     imageProfileContainer: {
-        width: 128,
-        height: 128,
+        width: 135,
+        height: 135,
         borderRadius: 128,
-        backgroundColor: colors.morado,
+        backgroundColor: colors.naranjaPrimario,
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -87,7 +89,10 @@ const styles = StyleSheet.create({
     },
     profileData: {
         paddingVertical: 16,
-        fontSize: 16
+        fontSize: 18,
+        fontFamily: 'Rubik',
+        color: colors.azulOscuroTab,
+        fontWeight:'bold'
     },
     cameraIcon: {
         position: 'absolute',
@@ -98,5 +103,19 @@ const styles = StyleSheet.create({
         width: 128,
         height: 128,
         borderRadius: 128
+    },
+    userData:{
+        fontSize: 18,
+        fontFamily: 'Rubik',
+        marginTop: -10,
+        color: colors.azulOscuroTab,
+        fontWeight:'bold'
+    },
+    titleProfile:{
+        fontSize: 20,
+        fontFamily: 'Rubik',
+        color: colors.naranjaPrimario,
+        fontWeight:'bold',
+        marginBottom: 24
     }
 })
