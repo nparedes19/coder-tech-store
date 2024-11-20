@@ -7,6 +7,7 @@ import { authApi } from "../services/authService";
 import  authSlice  from "../features/auth/authSlice";
 import { userApi } from "../services/userService";
 
+
 export const store = configureStore({
     reducer:{
         shopSlice,
@@ -15,7 +16,7 @@ export const store = configureStore({
         [shopApi.reducerPath] : shopApi.reducer,
         [receiptApi.reducerPath] : receiptApi.reducer,
         [authApi.reducerPath] : authApi.reducer,
-        [userApi.reducerPath] : userApi.reducer
+        [userApi.reducerPath] : userApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(shopApi.middleware).concat(receiptApi.middleware).concat(authApi.middleware).concat(userApi.middleware)

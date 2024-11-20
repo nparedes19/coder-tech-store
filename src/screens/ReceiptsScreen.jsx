@@ -5,11 +5,8 @@ import { useGetReceiptsQuery } from '../services/receiptsService'
 
 const ReceiptsScreen = () => {
 
-  const { data, error, isLoading } = useGetReceiptsQuery()
+  const { data } = useGetReceiptsQuery()
   
-
-  console.log(data)
-
   const renderReceiptItem = ({ item }) => {
 
     dateOptions ={
@@ -24,7 +21,7 @@ const ReceiptsScreen = () => {
     return (
       <FlatCard style={styles.receiptContainer}>
         <Text style={styles.title}>Recibo {data.indexOf(item)}</Text>
-        <Text style={styles.date}>Creado el {new Date(item.createdAt).toLocaleString('es-Co',dateOptions)} Hs.</Text>
+        <Text style={styles.date}>Creado el {new Date(item.createdAt).toLocaleString('es-Co',dateOptions)} </Text>
         <Text style={styles.total}>Total ${item.total} </Text>
       </FlatCard>
     )

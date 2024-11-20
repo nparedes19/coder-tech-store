@@ -7,7 +7,7 @@ import { StyleSheet, Text } from "react-native";
 import { colors } from "../global/colors";
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import ProfileNavigator from "./ProfileNavigator";
-import MyPlaceNavigator from "./MyPlaceNavigator";
+
 
 
 const Tab = createBottomTabNavigator()
@@ -41,12 +41,6 @@ const TabNavigator = () => {
                         tabBarIcon: ({focused})=>(<Icon name="receipt-long" size={32} color={focused?colors.azulOscuroTab:colors.azulPrimario} />)
                     }}/>
                 
-                <Tab.Screen 
-                    component={MyPlaceNavigator} 
-                    name="Places"
-                    options={{
-                        tabBarIcon: ({focused})=>(<Icon name="location-on" size={32} color={focused?colors.azulOscuroTab:colors.azulPrimario} />)
-                    }}/>
                 <Tab.Screen 
                     component={ProfileNavigator} 
                     name="Profile"
