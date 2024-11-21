@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setProduct } from '../features/shop/shopSlice';
 import { useGetProductsByCategoryQuery } from '../services/shopService';
 
-const ProductsScreen = ({navigation,route}) => {
+const ProductsScreen = ({navigation}) => {
 
     const dispatch = useDispatch()
  

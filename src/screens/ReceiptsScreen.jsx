@@ -1,11 +1,23 @@
-import { StyleSheet, Text, FlatList } from 'react-native'
+import { StyleSheet, Text, FlatList, View } from 'react-native'
 import FlatCard from '../components/FlatCard'
 import { colors } from '../global/colors'
 import { useGetReceiptsQuery } from '../services/receiptsService'
+import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 
 const ReceiptsScreen = () => {
 
   const { data } = useGetReceiptsQuery()
+
+  const localId = useSelector(state => state.authSlice.value.localId)
+
+  const [filteredData, setFilteredData] = useState([])
+
+  useEffect(()=>{
+    if(data){
+      setFilteredData(data.filter(info => info.localId === localId ))
+    }
+  },[data])
   
   const renderReceiptItem = ({ item }) => {
 
@@ -20,7 +32,7 @@ const ReceiptsScreen = () => {
 
     return (
       <FlatCard style={styles.receiptContainer}>
-        <Text style={styles.title}>Recibo {data.indexOf(item)}</Text>
+        <Text style={styles.title}>Recibo {filteredData.indexOf(item)}</Text>
         <Text style={styles.date}>Creado el {new Date(item.createdAt).toLocaleString('es-Co',dateOptions)} </Text>
         <Text style={styles.total}>Total ${item.total} </Text>
       </FlatCard>
@@ -28,11 +40,18 @@ const ReceiptsScreen = () => {
   }
 
   return (
-    <FlatList
-      data={data}
-      keyExtractor={item => item.id}
-      renderItem={renderReceiptItem}
-    />
+    <>
+      {filteredData.length === 0 ? (
+        <View style={styles.noProducts}>
+            <Text style={styles.textNoProducts}>No tienes recibos que mostrar 😬</Text>
+        </View>):
+        (
+          <FlatList
+            data={filteredData}
+            keyExtractor={item => filteredData.indexOf(item)}
+            renderItem={renderReceiptItem}
+        />)}
+    </>
   )
 }
 
@@ -60,5 +79,19 @@ const styles = StyleSheet.create({
   date:{
     ontFamily: 'Rubik',
     fontSize: 18,
-  }
+  },
+  noProducts:{
+    padding: 20,
+    backgroundColor: colors.azulPrimario,
+    borderRadius: 16,
+    marginHorizontal: 16,
+    marginTop: 16
+},
+textNoProducts:{
+    fontFamily: 'Rubik',
+    color: colors.naranjaPrimario,
+    fontSize: 20, 
+    fontWeight: 'bold',
+
+}
 })

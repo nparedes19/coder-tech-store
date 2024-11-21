@@ -32,11 +32,9 @@ const LoginScreen = ({navigation}) => {
 
     useEffect(()=>{
         if(result.isSuccess){
-            console.log("Usuario logueado con éxito")
             dispatch(setUser(result.data))
-            console.log(rememberMe)
             if(rememberMe){
-                clearSessions().then(() => console.log('sesiones eliminadas')).catch(error => console.log("Error al eiminar las sesiones"))
+                clearSessions().then(() => console.log('Sesiones eliminadas')).catch(error => console.log("Error al eiminar las sesiones"))
                 insertSession({
                     localId: result.data.localId,
                     email: result.data.email,
@@ -45,18 +43,15 @@ const LoginScreen = ({navigation}) => {
                     error=> console.log(error)
                 )
             }
-        }else{
-            console.log(result)
         }
-        // if(result.error){
-        //     if(result.error.data.error.code === 400){
-        //         showToast('error', 'Datos incorrectos 🙁')
-        //     }
-        // }
+        if(result.error){
+            if(result.error.data.error.code === 400){
+                showToast('error', 'Datos incorrectos 🙁')
+            }
+        }
     },[result, rememberMe])
 
-    const onsubmit = ()=>{
-        //console.log(email,password)       
+    const onsubmit = ()=>{     
         triggerLogin({email,password})
     }
 

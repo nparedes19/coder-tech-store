@@ -12,6 +12,7 @@ const CartScreen = ({navigation}) => {
 
     const cart = useSelector(state => state.cartSlice.value.cartItems)
     const total = useSelector(state => state.cartSlice.value.total)
+    const localId = useSelector(state => state.authSlice.value.localId)
     const [trigerPost, result] = usePostReceiptMutation()
 
     const dispatch = useDispatch()
@@ -20,8 +21,7 @@ const CartScreen = ({navigation}) => {
         <View style={styles.footerContainer}>
             <Text style={styles.footerTotal}>Total: $ {total} </Text>
             <Pressable style={styles.confirmButton} onPress={() => {
-                console.log(cart)
-                    trigerPost({cart, total, createdAt: Date.now()})
+                    trigerPost({cart, total, createdAt: Date.now(), localId})
                     dispatch(clearCart())
                     navigation.navigate('Receipts')
                 }}>

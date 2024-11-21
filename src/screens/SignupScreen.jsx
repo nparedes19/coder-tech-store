@@ -27,8 +27,6 @@ const SignupScreen = ({navigation}) => {
 
     const dispatch = useDispatch()
 
-    console.log(result)
-
     useEffect(() => {
         if(result.status === "relected"){
 

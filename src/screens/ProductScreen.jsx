@@ -8,7 +8,7 @@ import { addItem } from '../features/cart/cartSlice';
 import { useGetProductQuery } from '../services/shopService';
 import Toast from 'react-native-toast-message';
 
-const ProductScreen = ({ route, navigation }) => {
+const ProductScreen = () => {
     const [productFound, setProductFound] = useState({})
     const id = useSelector(state =>state.shopSlice.value.productSelected)
     const { data, error, isLoading } = useGetProductQuery(id)
