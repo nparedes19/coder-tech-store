@@ -39,13 +39,13 @@ Asegúrate de tener instalados los siguientes componentes:
 ---
 
 ### Herramientas utilizadas
-* React Native
-* Expo Go
-* Android Studio
-* Redux
-* SQLite
-* Firebase
-* JavaScript
+* React Native => Framework para desarrollar la aplicación
+* Expo Go => Ejecutar la aplicación en dispositivos físicos
+* Android Studio => Emular dispositivos Android
+* Redux => Maneja el estado global de la aplicación
+* SQLite => Persistencia de datos, en el caso de esta aplicación para guardar la sesión
+* Firebase => Para guardar las categorías, productos, ordenes de compra e información del usuario
+* JavaScript => Para la lógica de la aplicación
 
 ---
 
@@ -63,6 +63,12 @@ git clone https://github.com/nparedes19/coder-tech-store.git
 * En caso de estar en un emulador Android presiona la tecla A para abrir el proyecto en tu emulador
 * En caso de estar en un dispositivo físico escanea el código QR que se muestra en pantalla
 * Crea un usuario y empieza a explorar la aplicación
+
+---
+
+### Links
+* [GIF](https://i.postimg.cc/zGY8LSTW/qemu-system-x86-64-e3-Ai-Lx-Ux-HQ.gif)
+* [GitHub](https://github.com/nparedes19/coder-tech-store)
 
 ---
 
